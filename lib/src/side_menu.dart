@@ -310,13 +310,10 @@ class _SideMenuState extends State<SideMenu> {
                 width: this._currentWidth,
                 height: MediaQuery.sizeOf(context).height,
                 decoration: _decoration(widget.style),
-                child: Stack(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (global.style.showHamburger) hamburgerIcon,
+                    if (global.style.showHamburger) hamburgerIcon,
                           if (global.style.displayMode ==
                                   SideMenuDisplayMode.compact &&
                               showToggle)
@@ -324,8 +321,13 @@ class _SideMenuState extends State<SideMenu> {
                               height: 42,
                             ),
                           if (widget.title != null) widget.title!,
-                          ...sidemenuitems.items,
-                        ],
+                    Expanded(child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                            ...sidemenuitems.items,
+                          ],
+                        ),
                       ),
                     ),
                     if ((widget.footer != null &&
